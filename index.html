@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+  <title>Muchad AI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: Arial, sans-serif;
+      background: #0f172a; color: #f8fafc;
+    }
+    header {
+      padding: 22px 18px; background: #1e293b;
+      border-bottom: 1px solid #334155;
+    }
+    .brand { font-size: 27px; font-weight: 800; }
+    .brand span { color: #c084fc; }
+    .tagline { color: #cbd5e1; font-size: 13px; margin-top: 7px; }
+    main { max-width: 760px; margin: auto; padding: 18px; }
+    .hero { text-align: center; padding: 25px 0; }
+    .hero h1 { font-size: 32px; margin-bottom: 10px; }
+    .hero p { color: #cbd5e1; line-height: 1.6; }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    button {
+      cursor: pointer; border: 0; border-radius: 10px;
+      padding: 12px 15px; font-weight: bold;
+    }
+    .tab { background: #263449; color: white; flex: 1; }
+    .tab.active, .primary {
+      background: #a855f7; color: white;
+    }
+    .panel {
+      background: #1e293b; padding: 18px;
+      border-radius: 16px; margin-top: 15px;
+      border: 1px solid #334155;
+    }
+    textarea, input {
+      width: 100%; margin: 10px 0; padding: 13px;
+      border-radius: 9px; border: 1px solid #475569;
+      background: #0f172a; color: white; font: inherit;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    .primary { width: 100%; margin-top: 5px; }
+    .note { color: #cbd5e1; font-size: 13px; line-height: 1.6; }
+    #result {
+      white-space: pre-wrap; overflow-wrap: anywhere;
+      margin-top: 15px; line-height: 1.6;
+    }
+    footer { text-align: center; padding: 25px; color: #94a3b8; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">✦ Muchad <span>AI</span></div>
+    <div class="tagline">Your ideas. Your creativity. Your future.</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Welcome to Muchad AI</h1>
+      <p>Chat with AI, explore image creation and prepare voice projects — all in one place.</p>
+    </section>
+
+    <nav class="tabs" aria-label="AI tools">
+      <button class="tab active" data-panel="chat">💬 AI Chat</button>
+      <button class="tab" data-panel="images">🎨 Images</button>
+      <button class="tab" data-panel="voice">🎙 Voice</button>
+    </nav>
+
+    <section class="panel" id="chat">
+      <h2>AI Chat</h2>
+      <p class="note">Ask a question in English or Kinyarwanda.</p>
+      <textarea id="question" placeholder="Andika ikibazo cyawe hano..."></textarea>
+      <button class="primary" id="ask">Send question</button>
+      <div id="result" aria-live="polite"></div>
+    </section>
+
+    <section class="panel" id="images" hidden>
+      <h2>Image Creator</h2>
+      <p class="note">Describe the picture you want to create.</p>
+      <textarea id="imagePrompt" placeholder="Describe your image..."></textarea>
+      <button class="primary" id="makeImage">Prepare image request</button>
+      <div id="imageResult" class="note" aria-live="polite"></div>
+    </section>
+
+    <section class="panel" id="voice" hidden>
+      <h2>Voice Studio</h2>
+      <p class="note">Write the text you want to turn into speech.</p>
+      <textarea id="voiceText" placeholder="Write your text here..."></textarea>
+      <button class="primary" id="makeVoice">Prepare voice request</button>
+      <div id="voiceResult" class="note" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>© 2026 Muchad AI · Built for creativity</footer>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const panels = ["chat", "images", "voice"];
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        panels.forEach(id => {
+          document.getElementById(id).hidden =
+            id !== tab.dataset.panel;
+        });
+      });
+    });
+
+    document.getElementById("ask").onclick = () => {
+      const q = document.getElementById("question").value.trim();
+      document.getElementById("result").textContent = q
+        ? "Your question is ready. Connect a secure AI API to receive a real answer."
+        : "Please enter a question first.";
+    };
+
+    document.getElementById("makeImage").onclick = () => {
+      const p = document.getElementById("imagePrompt").value.trim();
+      document.getElementById("imageResult").textContent = p
+        ? "Your image description is ready. An image-generation service must be connected to create the picture."
+        : "Please describe your image first.";
+    };
+
+    document.getElementById("makeVoice").onclick = () => {
+      const t = document.getElementById("voiceText").value.trim();
+      document.getElementById("voiceResult").textContent = t
+        ? "Your text is ready. Connect a text-to-speech service to generate audio."
+        : "Please enter some text first.";
+    };
+  </script>
+</body>
+    </html>
+  
